@@ -81,6 +81,63 @@ body {
   flex-direction: column;
 }
 
+/* Card Base Class */
+.card {
+  background: var(--background-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px 0 rgba(20,40,61,0.08);
+  padding: 24px;
+  margin-bottom: 24px;
+  transition: box-shadow 0.15s;
+}
+.card:hover {
+  box-shadow: 0 4px 16px 0 rgba(20,40,61,0.14);
+}
+
+/* Button Base Classes */
+.btn {
+  background-color: var(--primary);
+  color: var(--text-on-primary);
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 3px 0 rgba(20,40,61,0.07);
+  outline: none;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: #16945d;
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+  color: var(--text-on-secondary);
+}
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background-color: #0e3543;
+}
+
+.btn-accent {
+  background-color: var(--accent);
+  color: var(--text-on-accent);
+}
+.btn-accent:hover,
+.btn-accent:focus {
+  background-color: #fcd769;
+}
+
+.btn-large {
+  padding: 12px 24px;
+  font-size: 1.1rem;
+}
+
 .navbar {
   background-color: var(--kavia-dark);
   padding: 16px;
