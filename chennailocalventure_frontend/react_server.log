@@ -131,3 +131,10 @@ src/App.js
 
 webpack compiled with 2 errors
 Compiling...
+Failed to compile.
+
+Module not found: Error: Can't resolve 'react-router-dom' in '/home/kavia/workspace/code-generation/chennailocalventure-16544-9efea7b8/chennailocalventure_frontend/src'
+ERROR in ./src/App.js 8:0-93
+Module not found: Error: Can't resolve 'react-router-dom' in '/home/kavia/workspace/code-generation/chennailocalventure-16544-9efea7b8/chennailocalventure_frontend/src'
+
+webpack compiled with 1 error
