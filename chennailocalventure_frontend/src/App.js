@@ -1,5 +1,14 @@
 import React from 'react';
 import './App.css';
+// Add React Router DOM for route-based navigation
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  useLocation,
+} from "react-router-dom";
+
 // PUBLIC_INTERFACE
 /**
  * Main App component for ChennaiLocalVenture.
@@ -7,101 +16,105 @@ import './App.css';
  */
 function App() {
   return (
-    <div className="app">
-      {/* Global Navigation Bar */}
-      <nav className="navbar">
-        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div className="logo">
-            <span className="logo-symbol" role="img" aria-label="Explore">*</span>
-            ChennaiLocalVenture
+    <Router>
+      <div className="app">
+        {/* Global Navigation Bar */}
+        <nav className="navbar">
+          <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div className="logo">
+              <span className="logo-symbol" role="img" aria-label="Explore">*</span>
+              ChennaiLocalVenture
+            </div>
+            <NavBar />
           </div>
-          <NavBar />
-        </div>
-      </nav>
-      {/* Routed Page Content Area */}
-      <main style={{ flex: 1, paddingTop: 80 }}>
-        <div className="container">
-          <Router />
-        </div>
-      </main>
-      {/* Global Footer */}
-      <footer style={{
-        background: 'var(--background-card)',
-        borderTop: '1px solid var(--border-color)',
-        padding: '24px 0',
-        marginTop: 'auto',
-        fontSize: '1rem',
-        color: 'var(--text-secondary)',
-        textAlign: 'center',
-      }}>
-        © {new Date().getFullYear()} ChennaiLocalVenture &mdash; Discover Your City, Authentically!
-      </footer>
-    </div>
+        </nav>
+        {/* Routed Page Content Area */}
+        <main style={{ flex: 1, paddingTop: 80 }}>
+          <div className="container">
+            <MainRoutes />
+          </div>
+        </main>
+        {/* Global Footer */}
+        <footer style={{
+          background: 'var(--background-card)',
+          borderTop: '1px solid var(--border-color)',
+          padding: '24px 0',
+          marginTop: 'auto',
+          fontSize: '1rem',
+          color: 'var(--text-secondary)',
+          textAlign: 'center',
+        }}>
+          © {new Date().getFullYear()} ChennaiLocalVenture &mdash; Discover Your City, Authentically!
+        </footer>
+      </div>
+    </Router>
   );
 }
 
-// PUBLIC_INTERFACE
 /**
- * Navigation bar component with links.
+ * Navigation bar component with links, using react-router-dom's Link and route awareness.
  */
 function NavBar() {
-  // Simple tab navigation highlighting simulated with window.location.hash
+  const location = useLocation();
   const navLinks = [
-    { name: 'Home', to: '#' },
-    { name: 'Discover', to: '#discover' },
-    { name: 'Bookings', to: '#bookings' },
-    { name: 'Hosts', to: '#hosts' },
-    { name: 'Profile', to: '#profile' }
+    { name: 'Home', to: '/' },
+    { name: 'Discover', to: '/discover' },
+    { name: 'Bookings', to: '/bookings' },
+    { name: 'Hosts', to: '/hosts' },
+    { name: 'Profile', to: '/profile' }
   ];
-  const active = window.location.hash || '#';
   return (
     <nav role="navigation" aria-label="Main navigation">
       <ul style={{ display: 'flex', gap: 24, margin: 0, padding: 0, listStyle: 'none' }}>
-        {navLinks.map(link => (
-          <li key={link.name}>
-            <a 
-              href={link.to}
-              className={`btn btn-secondary${active === link.to ? ' bg-primary text-on-primary' : ''}`}
-              style={{
-                textDecoration: 'none',
-                padding: '8px 20px',
-                fontWeight: active === link.to ? 600 : 500,
-                borderRadius: 6,
-                fontSize: '1rem',
-                border: 'none',
-                margin: 0,
-                background: 'none',
-                color: 'inherit',
-                transition: 'background 0.1s'
-              }}
-            >
-              {link.name}
-            </a>
-          </li>
-        ))}
+        {navLinks.map(link => {
+          const isActive =
+            link.to === '/'
+              ? location.pathname === '/'
+              : location.pathname.startsWith(link.to);
+          return (
+            <li key={link.name}>
+              <Link
+                to={link.to}
+                className={`btn btn-secondary${isActive ? ' bg-primary text-on-primary' : ''}`}
+                style={{
+                  textDecoration: 'none',
+                  padding: '8px 20px',
+                  fontWeight: isActive ? 600 : 500,
+                  borderRadius: 6,
+                  fontSize: '1rem',
+                  border: 'none',
+                  margin: 0,
+                  background: 'none',
+                  color: 'inherit',
+                  transition: 'background 0.1s',
+                  ...(isActive ? {pointerEvents: 'none'} : {}) // visually clear highlight for active
+                }}
+              >
+                {link.name}
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );
 }
 
-// PUBLIC_INTERFACE
 /**
- * Main router—renders page content based on hash.
- * Basic implementation using location.hash for demo (no dependency).
+ * React Router routes for all main app sections.
  */
-function Router() {
-  const [route, setRoute] = React.useState(window.location.hash || '#');
-  React.useEffect(() => {
-    const onHash = () => setRoute(window.location.hash || '#');
-    window.addEventListener('hashchange', onHash);
-    return () => window.removeEventListener('hashchange', onHash);
-  }, []);
-  if (route === '#discover') return <DiscoverPage />;
-  if (route === '#bookings') return <BookingsPage />;
-  if (route === '#hosts') return <HostsPage />;
-  if (route === '#profile') return <ProfilePage />;
-  // Default: Home
-  return <HomePage />;
+function MainRoutes() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/discover" element={<DiscoverPage />} />
+      <Route path="/bookings" element={<BookingsPage />} />
+      <Route path="/hosts" element={<HostsPage />} />
+      <Route path="/profile" element={<ProfilePage />} />
+      {/* fallback, may add 404 later */}
+      <Route path="*" element={<HomePage />} />
+    </Routes>
+  );
 }
 
 // ---------- Page Stubs ----------
