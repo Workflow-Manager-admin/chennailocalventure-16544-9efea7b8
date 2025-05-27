@@ -1,18 +1,78 @@
 :root {
-  --kavia-orange: #E87A41;
-  --kavia-dark: #1A1A1A;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
+  /* ChennaiLocalVenture Brand Colors */
+  --primary: #1A936F;
+  --secondary: #114B5F;
+  --accent: #F9C846;
+
+  /* Light Theme Neutral Colors */
+  --background-main: #F8FAF9;
+  --background-card: #FFFFFF;
+  --background-muted: #F2F2F2;
+  --border-color: #E0E3E1;
+  --text-main: #212B36;
+  --text-secondary: #637381;
+  --text-on-primary: #FFFFFF;
+  --text-on-secondary: #FFFFFF;
+  --text-on-accent: #212B36;
 }
+
 
 body {
   margin: 0;
   font-family: 'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-  background-color: var(--kavia-dark);
-  color: var(--text-color);
+  background-color: var(--background-main);
+  color: var(--text-main);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Base Background Classes */
+.bg-main {
+  background-color: var(--background-main);
+}
+.bg-card {
+  background-color: var(--background-card);
+}
+.bg-muted {
+  background-color: var(--background-muted);
+}
+.bg-primary {
+  background-color: var(--primary) !important;
+  color: var(--text-on-primary) !important;
+}
+.bg-secondary {
+  background-color: var(--secondary) !important;
+  color: var(--text-on-secondary) !important;
+}
+.bg-accent {
+  background-color: var(--accent) !important;
+  color: var(--text-on-accent) !important;
+}
+
+/* Base Font Color Classes */
+.text-main {
+  color: var(--text-main) !important;
+}
+.text-secondary {
+  color: var(--text-secondary) !important;
+}
+.text-primary {
+  color: var(--primary) !important;
+}
+.text-secondary-brand {
+  color: var(--secondary) !important;
+}
+.text-accent {
+  color: var(--accent) !important;
+}
+.text-on-primary {
+  color: var(--text-on-primary) !important;
+}
+.text-on-secondary {
+  color: var(--text-on-secondary) !important;
+}
+.text-on-accent {
+  color: var(--text-on-accent) !important;
 }
 
 .app {
