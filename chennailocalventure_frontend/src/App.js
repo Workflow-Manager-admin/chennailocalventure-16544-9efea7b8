@@ -1,13 +1,11 @@
 import React from 'react';
 import './App.css';
-// Add React Router DOM for route-based navigation
 import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link,
-  useLocation,
 } from "react-router-dom";
+import Navbar from "./Navbar";
 
 // PUBLIC_INTERFACE
 /**
@@ -25,7 +23,7 @@ function App() {
               <span className="logo-symbol" role="img" aria-label="Explore">*</span>
               ChennaiLocalVenture
             </div>
-            <NavBar />
+            <Navbar />
           </div>
         </nav>
         {/* Routed Page Content Area */}
@@ -51,54 +49,7 @@ function App() {
   );
 }
 
-/**
- * Navigation bar component with links, using react-router-dom's Link and route awareness.
- */
-function NavBar() {
-  const location = useLocation();
-  const navLinks = [
-    { name: 'Home', to: '/' },
-    { name: 'Discover', to: '/discover' },
-    { name: 'Bookings', to: '/bookings' },
-    { name: 'Hosts', to: '/hosts' },
-    { name: 'Profile', to: '/profile' }
-  ];
-  return (
-    <nav role="navigation" aria-label="Main navigation">
-      <ul style={{ display: 'flex', gap: 24, margin: 0, padding: 0, listStyle: 'none' }}>
-        {navLinks.map(link => {
-          const isActive =
-            link.to === '/'
-              ? location.pathname === '/'
-              : location.pathname.startsWith(link.to);
-          return (
-            <li key={link.name}>
-              <Link
-                to={link.to}
-                className={`btn btn-secondary${isActive ? ' bg-primary text-on-primary' : ''}`}
-                style={{
-                  textDecoration: 'none',
-                  padding: '8px 20px',
-                  fontWeight: isActive ? 600 : 500,
-                  borderRadius: 6,
-                  fontSize: '1rem',
-                  border: 'none',
-                  margin: 0,
-                  background: 'none',
-                  color: 'inherit',
-                  transition: 'background 0.1s',
-                  ...(isActive ? {pointerEvents: 'none'} : {}) // visually clear highlight for active
-                }}
-              >
-                {link.name}
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
-  );
-}
+
 
 /**
  * React Router routes for all main app sections.
